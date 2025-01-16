@@ -61,6 +61,19 @@ export async function POST (
       }
     });
 
+    if (user.id !== requester.id) {
+      await prisma.notification.create({
+        data: {
+          user: {
+            connect: {
+              id: user.id
+            }
+          },
+          content: requester.name + " followed you!"
+        }
+      })
+    }
+
     return NextResponse.json({ message: "Followed user." }, { status: 200 });
   }
 }

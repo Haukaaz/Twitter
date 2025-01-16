@@ -1,4 +1,5 @@
 "use client"
+import PageTitle from "@/components/PageTitle";
 import Post from "@/components/Post";
 import api from "@/lib/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -33,6 +34,7 @@ export default function PostPage () {
     <>
       {post.isSuccess ? (
         <>
+          <PageTitle pageTitle="Post" />
           <Post post={post.data} />
           <div className="flex justify-between gap-2 p-4 items-center border-b-2 border-gray-300">
             <div>
@@ -40,10 +42,10 @@ export default function PostPage () {
             </div>
               <input value={replyData} onChange={(e) => setReplyData(e.target.value)} placeholder="What's your reply?" className="outline-none p-2 w-full" />
             <div>
-              <button onClick={() => replyToPost.mutate()} className="bg-blue-400 text-center py-2 px-4 text-white rounded-xl hover:bg-blue-500 transition duration-300 ">Reply</button>
+              <button onClick={() => replyToPost.mutate()} className="bg-blue-400 text-center py-2 px-4 text-white rounded-full hover:bg-blue-500 transition duration-300 ">Reply</button>
             </div>
           </div>
-          {post.data.replies.map((reply, index) => (
+          {post.data.replies.map((reply: any, index: any) => (
             <div key={index} className="flex flex-col p-4 gap-2 border-b-2 border-gray-300">
               <div className="flex gap-2">
                 <img src={reply.user.image} className="w-14 h-14 rounded-full" />
